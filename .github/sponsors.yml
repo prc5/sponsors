@@ -1,0 +1,47 @@
+name: sponsorkit
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *" # Once a day
+
+permissions:
+  contents: write
+
+jobs:
+  update-sponsors:
+    name: Update sponsors
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: true
+
+      - name: Update sponsors
+        run: pnpm sponsorkit
+        env:
+          SPONSORKIT_GITHUB_TOKEN: ${{ secrets.SPONSORKIT_GITHUB_TOKEN }}
+
+      - name: Commit
+        run: |
+          if [[ -z $(git status --porcelain --untracked-files=no) ]]; then
+            echo "No changes to commit"
+            exit 0
+          fi
+
+          git config user.name 'Maciej Pyrc'
+          git config user.email 'maciekpyrc@gmail.com'
+          git commit -am 'chore: update sponsors'
+          git push
