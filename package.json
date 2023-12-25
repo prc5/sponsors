@@ -1,6 +1,9 @@
 {
   "private": true,
   "scripts": {
-    "generate": "npx sponsorkit"
+    "generate": "npm run sponsorkit"
+  },
+  "dependencies": {
+    "sponsorkit": "^0.9.0"
   }
 }
