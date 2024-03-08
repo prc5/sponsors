@@ -12,6 +12,10 @@ export default defineConfig({
   formats: ["svg", "png"],
   tiers: [
     {
+      title: "Donors",
+      preset: presets.xs,
+    },
+    {
       title: "Platinum Sponsors",
       monthlyDollars: 1600,
       preset: presets.xl,
