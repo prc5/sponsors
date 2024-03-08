@@ -1,9 +1,0 @@
-{
-  "private": true,
-  "scripts": {
-    "generate:gold": "npm run sponsorkit --filter='<800' name=sponsors.gold"
-  },
-  "dependencies": {
-    "sponsorkit": "^0.9.0"
-  }
-}

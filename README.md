@@ -1,6 +1,6 @@
 # Sponsors
 
-I want to thank everyone who support me on my path. You're are amazing 💖
+I want to thank everyone who support BetterTyped. You're are amazing 💖
 
 ## Badge
 

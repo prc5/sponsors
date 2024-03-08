@@ -1,0 +1,17 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "./packages/gold"
+    },
+    {
+      "path": "./packages/other"
+    },
+    {
+      "path": "./packages/platinum"
+    }
+  ],
+  "compilerOptions": {
+    "skipLibCheck": true
+  }
+}

@@ -1,15 +1,12 @@
 {
-  "name": "org",
+  "name": "package-based",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {
-    "generate": "nx run-many --target=generate --all"
-  },
+  "scripts": {},
   "private": true,
   "dependencies": {},
   "devDependencies": {
     "@nx/js": "18.0.7",
-    "@nx/plugin": "18.0.7",
     "nx": "18.0.7"
   },
   "workspaces": [

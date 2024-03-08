@@ -1,9 +1,0 @@
-{
-  "private": true,
-  "scripts": {
-    "generate:platinum": "npm run sponsorkit --filter='>=1600' name=sponsors.platinum"
-  },
-  "dependencies": {
-    "sponsorkit": "^0.9.0"
-  }
-}
