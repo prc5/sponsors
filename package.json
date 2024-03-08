@@ -1,7 +1,11 @@
 {
   "private": true,
   "scripts": {
-    "generate": "npm run sponsorkit"
+    "generate:all": "npm run sponsorkit",
+    "generate:platinum": "cd ./tiers/platinum && npm run sponsorkit --filter='>=1600' name=sponsors.platinum",
+    "generate:gold": "cd ./tiers/platinum && npm run sponsorkit --filter='>=800' name=sponsors.gold",
+    "generate:other": "cd ./tiers/platinum && npm run sponsorkit --filter='<800' name=sponsors.other",
+    "generate": "yarn generate:all && yarn generate:platinum && yarn generate:gold && yarn generate:other"
   },
   "dependencies": {
     "sponsorkit": "^0.9.0"
