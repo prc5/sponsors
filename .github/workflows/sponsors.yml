@@ -27,6 +27,12 @@ jobs:
       - name: Install packages
         run: yarn install
 
+      - name: Install packages
+        run: yarn install
+
+      - name: Install sharp
+        run: yarn add sharp --ignore-engines -W -D
+
       - name: Update sponsors
         run: yarn generate
         env:
