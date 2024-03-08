@@ -32,7 +32,8 @@ jobs:
       - name: Update sponsors
         run: pnpm sponsorkit
         env:
-          SPONSORKIT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SPONSORKIT_GITHUB_TOKEN: ${{ secrets.SPONSORKIT_GITHUB_TOKEN }}
+          SPONSORKIT_GITHUB_LOGIN: prc5
 
       - name: Commit
         run: |
