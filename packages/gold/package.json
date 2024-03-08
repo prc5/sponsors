@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "generate": "npm run sponsorkit --filter='<1600' name=sponsors.gold"
+    "generate": "yarn sponsorkit --filter='<1600' name=sponsors.gold"
   },
   "dependencies": {
     "sponsorkit": "^0.9.1"
