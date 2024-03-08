@@ -1,11 +1,11 @@
 {
-  "name": "other",
+  "name": "silver",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "generate": "yarn sponsorkit --force"
   },
   "dependencies": {
-    "sponsorkit": "0.9.1"
+    "sponsorkit": "^0.9.1"
   }
 }

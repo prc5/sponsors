@@ -2,13 +2,19 @@
   "files": [],
   "references": [
     {
+      "path": "./packages/platinum"
+    },
+    {
       "path": "./packages/gold"
+    },
+    {
+      "path": "./packages/silver"
     },
     {
       "path": "./packages/other"
     },
     {
-      "path": "./packages/platinum"
+      "path": "./packages/all"
     }
   ],
   "compilerOptions": {

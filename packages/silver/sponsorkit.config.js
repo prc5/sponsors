@@ -13,7 +13,10 @@ export default defineConfig({
   width: 800,
   formats: ["svg", "png"],
   filter: (sponsor) => {
-    if (sponsor.monthlyDollars >= Tiers.Platinum.monthlyDollars) {
+    if (
+      sponsor.monthlyDollars < Tiers.Gold.monthlyDollars &&
+      sponsor.monthlyDollars >= Tiers.Silver.monthlyDollars
+    ) {
       return true;
     }
     return false;

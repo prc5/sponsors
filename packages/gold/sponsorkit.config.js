@@ -1,5 +1,7 @@
-import { defineConfig, presets } from "sponsorkit";
+import { defineConfig } from "sponsorkit";
+import { Tiers } from "../../constants/tiers.constants";
 
+/** @type {import("sponsorkit").SponsorkitConfig} */
 export default defineConfig({
   // Providers configs
   github: {
@@ -10,15 +12,14 @@ export default defineConfig({
   // Rendering configs
   width: 800,
   formats: ["svg", "png"],
-  tiers: [
-    {
-      title: "Donors",
-      preset: presets.xs,
-    },
-    {
-      title: "Gold Sponsors",
-      monthlyDollars: 800,
-      preset: presets.large,
-    },
-  ],
+  filter: (sponsor) => {
+    if (
+      sponsor.monthlyDollars < Tiers.Platinum.monthlyDollars &&
+      sponsor.monthlyDollars >= Tiers.Gold.monthlyDollars
+    ) {
+      return true;
+    }
+    return false;
+  },
+  tiers: Object.values(Tiers),
 });
