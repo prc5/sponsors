@@ -18,19 +18,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Set up Node
         uses: actions/setup-node@v3
         with:
-          node-version: lts/*
+          node-version: "18"
+          cache: "yarn"
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-          run_install: true
+      - name: Install packages
+        run: yarn install
 
       - name: Update sponsors
-        run: pnpm generate
+        run: yarn generate
         env:
           SPONSORKIT_GITHUB_TOKEN: ${{ secrets.SPONSORKIT_GITHUB_TOKEN }}
           SPONSORKIT_GITHUB_LOGIN: prc5
