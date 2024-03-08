@@ -30,7 +30,7 @@ jobs:
           run_install: true
 
       - name: Update sponsors
-        run: pnpm sponsorkit
+        run: pnpm generate
         env:
           SPONSORKIT_GITHUB_TOKEN: ${{ secrets.SPONSORKIT_GITHUB_TOKEN }}
           SPONSORKIT_GITHUB_LOGIN: prc5
