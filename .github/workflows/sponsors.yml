@@ -48,5 +48,6 @@ jobs:
 
           git config user.name 'Maciej Pyrc'
           git config user.email 'maciekpyrc@gmail.com'
+          git add .
           git commit -am 'chore: 🤖 update sponsors'
           git push
