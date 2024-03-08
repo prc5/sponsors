@@ -10,7 +10,8 @@
   "devDependencies": {
     "@nx/js": "18.0.7",
     "@nx/plugin": "18.0.7",
-    "nx": "18.0.7"
+    "nx": "18.0.7",
+    "sharp": "^0.33.2"
   },
   "workspaces": [
     "packages/*"
