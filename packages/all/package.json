@@ -1,9 +1,9 @@
 {
-  "name": "gold",
+  "name": "all",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "generate": "yarn sponsorkit --filter='<1600'"
+    "generate": "yarn sponsorkit"
   },
   "dependencies": {
     "sponsorkit": "^0.9.1"
