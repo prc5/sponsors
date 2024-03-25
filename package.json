@@ -6,7 +6,9 @@
     "generate": "nx run-many --target=generate --all"
   },
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "sharp": "^0.33.3"
+  },
   "devDependencies": {
     "@nx/js": "18.0.7",
     "@nx/plugin": "18.0.7",

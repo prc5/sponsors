@@ -31,7 +31,7 @@ jobs:
         run: yarn install
 
       - name: Install sharp
-        run: SHARP_IGNORE_GLOBAL_LIBVIPS=1 npm_config_arch=x64 npm_config_platform=linux yarn add sharp --ignore-engines -W -D
+        run: npm install --cpu=x64 --os=linux sharp -W -D
 
       - name: Update sponsors
         run: yarn generate
