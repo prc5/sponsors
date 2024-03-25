@@ -11,7 +11,7 @@
     "@nx/js": "18.0.7",
     "@nx/plugin": "18.0.7",
     "nx": "18.0.7",
-    "sharp": "^0.32.6"
+    "sharp": "^0.33.3"
   },
   "workspaces": [
     "packages/*"
