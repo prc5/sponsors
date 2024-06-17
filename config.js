@@ -6,8 +6,6 @@ export const sharedSponsorConfig = {
   },
   width: 800,
   formats: ["svg", "png"],
-  onSponsorsAllFetched(sponsors) {
-    console.log(sponsors);
-    return sponsors;
-  },
+  includePastSponsors: true,
+  renderer: "circles",
 };

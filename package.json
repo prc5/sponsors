@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "install-sharp": "yarn add sharp --ignore-engines --force -W -D",
     "generate": "nx run-many --target=generate --all"
   },
   "private": true,
@@ -10,7 +11,8 @@
     "@nx/js": "18.0.7",
     "@nx/plugin": "18.0.7",
     "nx": "18.0.7",
-    "sharp": "^0.33.4"
+    "sharp": "^0.33.4",
+    "sponsorkit": "0.14.0"
   },
   "workspaces": [
     "packages/*"

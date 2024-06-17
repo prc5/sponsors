@@ -31,7 +31,7 @@ jobs:
         run: yarn install
 
       - name: Install sharp
-        run: npm install --cpu=x64 --os=linux sharp -W -D
+        run: yarn install-sharp
 
       - name: Update sponsors
         run: yarn generate
