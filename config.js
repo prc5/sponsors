@@ -6,6 +6,5 @@ export const sharedSponsorConfig = {
   },
   width: 800,
   formats: ["svg", "png"],
-  includePastSponsors: true,
-  renderer: "circles",
+  includePastSponsors: true
 };
