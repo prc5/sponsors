@@ -1,17 +1,13 @@
 import { defineConfig } from "sponsorkit";
-import { Tiers } from "../../constants/tiers.constants";
 import { sharedSponsorConfig } from "../../sponsor.config";
 
 export default defineConfig(
   /** @type {import("sponsorkit").SponsorkitConfig} */
   {
     ...sharedSponsorConfig,
-    filter: (sponsor) => {
-      if (sponsor.monthlyDollars < Tiers.Silver.monthlyDollars) {
-        return true;
-      }
-      return false;
+    renderer: "circles",
+    circles: {
+      radiusPast: 3,
     },
-    tiers: Object.values(Tiers),
   }
 );

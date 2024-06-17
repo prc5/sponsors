@@ -6,6 +6,6 @@
     "generate": "yarn sponsorkit --force"
   },
   "dependencies": {
-    "sponsorkit": "^0.9.1"
+    "sponsorkit": "^0.14.0"
   }
 }

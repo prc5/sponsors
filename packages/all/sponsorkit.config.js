@@ -1,16 +1,11 @@
 import { defineConfig } from "sponsorkit";
 import { Tiers } from "../../constants/tiers.constants";
+import { sharedSponsorConfig } from "../../sponsor.config";
 
-/** @type {import("sponsorkit").SponsorkitConfig} */
-export default defineConfig({
-  // Providers configs
-  github: {
-    type: "user",
-    login: "prc5",
-  },
-
-  // Rendering configs
-  width: 800,
-  formats: ["svg", "png"],
-  tiers: Object.values(Tiers),
-});
+export default defineConfig(
+  /** @type {import("sponsorkit").SponsorkitConfig} */
+  {
+    ...sharedSponsorConfig,
+    tiers: Object.values(Tiers),
+  }
+);
