@@ -30,9 +30,6 @@ jobs:
       - name: Install packages
         run: yarn install
 
-      - name: Install sharp
-        run: yarn install-sharp
-
       - name: Update sponsors
         run: yarn generate
         env:
