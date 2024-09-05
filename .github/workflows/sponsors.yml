@@ -27,9 +27,6 @@ jobs:
       - name: Install packages
         run: yarn install
 
-      - name: Install packages
-        run: yarn install
-
       - name: Update sponsors
         run: yarn generate
         env:
