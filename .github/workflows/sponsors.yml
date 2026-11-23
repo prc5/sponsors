@@ -1,47 +1,87 @@
 name: sponsorkit
 
+# Rebuilds the sponsors feed (feed/v1/sponsors.json) and the sponsorkit images, commits them when they changed and
+# purges jsDelivr, so every docs site sees a change within minutes instead of after the CDN cache expires.
+
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 * * *" # Once a day
+    - cron: "0 */6 * * *"
+  push:
+    branches: [main]
+    paths:
+      - partners.json
+      - assets/partners/**
+      - scripts/**
+      - .github/workflows/sponsors.yml
 
 permissions:
   contents: write
+  actions: write
+
+concurrency:
+  group: sponsors
+  cancel-in-progress: false
 
 jobs:
   update-sponsors:
     name: Update sponsors
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 15
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version: "22"
           cache: "yarn"
+
+      - name: Test the feed builder
+        run: node --test scripts/build-feed.test.mjs
+
+      - name: Build the feed
+        run: node scripts/build-feed.mjs
+        env:
+          SPONSORS_GITHUB_TOKEN: ${{ secrets.SPONSORKIT_GITHUB_TOKEN }}
 
       - name: Install packages
         run: yarn install
 
-      - name: Update sponsors
+      - name: Build the images
         run: yarn generate
         env:
           SPONSORKIT_GITHUB_TOKEN: ${{ secrets.SPONSORKIT_GITHUB_TOKEN }}
           SPONSORKIT_GITHUB_LOGIN: prc5
 
       - name: Commit
+        id: commit
         run: |
-          if [[ -z $(git status --porcelain --untracked-files=no) ]]; then
+          if [[ -z $(git status --porcelain -- feed packages) ]]; then
             echo "No changes to commit"
             exit 0
           fi
 
-          git config user.name 'Maciej Pyrc'
-          git config user.email 'maciekpyrc@gmail.com'
-          git add .
-          git commit -am 'chore: 🤖 update sponsors'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add feed packages
+          git commit -m 'chore: 🤖 update sponsors'
           git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Purge the CDN
+        if: steps.commit.outputs.changed == 'true' || github.event_name == 'push'
+        run: |
+          for path in feed/v1/sponsors.json packages/all/sponsorkit/sponsors.svg packages/all/sponsorkit/sponsors.png; do
+            curl -fsS "https://purge.jsdelivr.net/gh/${GITHUB_REPOSITORY}@main/${path}" > /dev/null || echo "Purge failed for ${path}"
+          done
+
+      # GitHub turns scheduled workflows off after 60 days without activity in the repo, which is why the images
+      # stopped updating in 2025. Enabling the workflow through the API on every scheduled run keeps it on.
+      - name: Keep the schedule alive
+        if: github.event_name == 'schedule'
+        run: gh api -X PUT "repos/${GITHUB_REPOSITORY}/actions/workflows/sponsors.yml/enable"
+        env:
+          GH_TOKEN: ${{ github.token }}
