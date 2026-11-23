@@ -1,0 +1,15 @@
+{
+  "$comment": "Partners shown on every BetterTyped docs site. Edit this file, push to main, and the feed rebuilds. Fields: id, name, tagline (one short line), url (UTM params are added per site), logo (path in this repo or https URL), tier (platinum | gold | silver | house), projects (\"all\" or project ids), optional accent (CSS color), startsAt / endsAt (ISO dates). House entries fill the slots no paid partner has taken.",
+  "partners": [
+    {
+      "id": "hype-stack",
+      "name": "Hype Stack",
+      "tagline": "Ship your SaaS on a production-ready stack",
+      "url": "https://www.hype-stack.dev/",
+      "logo": "assets/partners/hype-stack.png",
+      "tier": "house",
+      "accent": "#f97316",
+      "projects": "all"
+    }
+  ]
+}
