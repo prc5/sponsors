@@ -83,6 +83,19 @@ test("drops website urls that are not http", () => {
   assert.equal(normalizeUrl("http://kerns.dk"), "http://kerns.dk/");
 });
 
+test("lists a sponsor who is also a partner only as the partner", () => {
+  const active = [node("amy", { dollars: 10 }), node("Acme-Org", { dollars: 2000, kind: "Organization" })];
+  const all = [...active, node("microsoft", { kind: "Organization", name: "Microsoft" }), node("gone")];
+  const partners = [partner({ id: "ms", tier: "platinum", github: "microsoft" }), partner({ id: "acme", github: "acme-org" })];
+  const feed = buildFeed({ active, all, counts: { activeWithPrivate: 3, allWithPrivate: 6 }, partners, now: NOW });
+
+  assert.deepEqual(feed.sponsors.map((s) => s.login), ["amy"]);
+  assert.deepEqual(feed.pastSponsors.map((s) => s.login), ["gone"]);
+  // One private sponsor is active and one is past; the partners are not counted as private
+  assert.deepEqual(feed.privateSponsors, { active: 1, past: 1 });
+  assert.equal("github" in feed.partners[0], false);
+});
+
 test("shows partners only inside their dates, ordered by tier", () => {
   const partners = [
     partner({ id: "house", tier: "house" }),
@@ -115,6 +128,7 @@ test("rejects partners the docs sites could not render", () => {
     partner({ id: "a", url: "http://insecure.dev" }),
     partner({ id: "b", tagline: "x".repeat(71), projects: "hyper-fetch" }),
     partner({ id: "c", name: "", endsAt: "soon" }),
+    partner({ id: "d", github: "not a login" }),
   ]);
 
   assert.deepEqual(errors, [
@@ -125,6 +139,7 @@ test("rejects partners the docs sites could not render", () => {
     'partners[2] (b): projects must be "all" or a list of project ids',
     'partners[3] (c): "name" is required',
     "partners[3] (c): endsAt is not a date",
+    "partners[4] (d): github must be a GitHub login",
   ]);
 });
 

@@ -90,12 +90,17 @@ const bySponsorOrder = (a, b) => tierRank(a.tier) - tierRank(b.tier) || a.name.l
  */
 export const buildFeed = ({ active, all, counts, partners, now = new Date() }) => {
   const activeLogins = new Set(active.map((node) => node.sponsorEntity?.login).filter(Boolean));
+  // A sponsor who is also a partner shows as the partner only
+  const partnerLogins = new Set(partners.map((partner) => partner.github?.toLowerCase()).filter(Boolean));
+  const notPartner = (node) => !partnerLogins.has(node.sponsorEntity?.login?.toLowerCase());
 
   const sponsors = active
+    .filter(notPartner)
     .map((node) => toSponsor(node, { past: false }))
     .filter(Boolean)
     .sort(bySponsorOrder);
   const pastSponsors = all
+    .filter(notPartner)
     .filter((node) => !activeLogins.has(node.sponsorEntity?.login))
     .map((node) => toSponsor(node, { past: true }))
     .filter(Boolean)
@@ -120,6 +125,9 @@ export const buildFeed = ({ active, all, counts, partners, now = new Date() }) =
     }))
     .sort((a, b) => PARTNER_TIERS.indexOf(a.tier) - PARTNER_TIERS.indexOf(b.tier));
 
+  const hiddenActive = active.filter((node) => !notPartner(node)).length;
+  const hiddenPast = all.filter((node) => !notPartner(node)).length - hiddenActive;
+
   return {
     version: 1,
     generatedAt: now.toISOString(),
@@ -129,8 +137,8 @@ export const buildFeed = ({ active, all, counts, partners, now = new Date() }) =
     sponsors,
     pastSponsors,
     privateSponsors: {
-      active: Math.max(0, counts.activeWithPrivate - active.length),
-      past: Math.max(0, counts.allWithPrivate - counts.activeWithPrivate - pastSponsors.length),
+      active: Math.max(0, counts.activeWithPrivate - sponsors.length - hiddenActive),
+      past: Math.max(0, counts.allWithPrivate - counts.activeWithPrivate - pastSponsors.length - hiddenPast),
     },
   };
 };
@@ -154,6 +162,9 @@ export const validatePartners = (partners) => {
     const projects = partner?.projects ?? "all";
     if (projects !== "all" && !(Array.isArray(projects) && projects.every((p) => typeof p === "string"))) {
       errors.push(`${at}: projects must be "all" or a list of project ids`);
+    }
+    if (partner?.github !== undefined && (typeof partner.github !== "string" || !/^[A-Za-z0-9-]+$/.test(partner.github))) {
+      errors.push(`${at}: github must be a GitHub login`);
     }
     for (const key of ["startsAt", "endsAt"]) {
       if (partner?.[key] && Number.isNaN(new Date(partner[key]).getTime())) errors.push(`${at}: ${key} is not a date`);

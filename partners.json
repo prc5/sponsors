@@ -1,6 +1,17 @@
 {
-  "$comment": "Partners shown on every BetterTyped docs site. Edit this file, push to main, and the feed rebuilds. Fields: id, name, tagline (one short line), url (UTM params are added per site), logo (path in this repo or https URL), tier (platinum | gold | silver | house), projects (\"all\" or project ids), optional accent (CSS color), startsAt / endsAt (ISO dates). House entries fill the slots no paid partner has taken.",
+  "$comment": "Partners shown on every BetterTyped docs site. Edit this file, push to main, and the feed rebuilds. Fields: id, name, tagline (one short line), url (UTM params are added per site), logo (path in this repo or https URL), tier (platinum | gold | silver | house), projects (\"all\" or project ids), optional accent (CSS color), optional github (their GitHub login, so they are not also listed as a sponsor), startsAt / endsAt (ISO dates). House entries fill the slots no paid partner has taken.",
   "partners": [
+    {
+      "id": "microsoft",
+      "name": "Microsoft",
+      "tagline": "Open source at Microsoft",
+      "url": "https://opensource.microsoft.com/",
+      "logo": "assets/partners/microsoft.svg",
+      "tier": "platinum",
+      "accent": "#00a4ef",
+      "github": "microsoft",
+      "projects": "all"
+    },
     {
       "id": "hype-stack",
       "name": "Hype Stack",

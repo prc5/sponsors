@@ -98,7 +98,7 @@ on demand from the Actions tab.
 
 1. Put the logo in `assets/partners/` (square, at least 128px, SVG or PNG).
 2. Add an entry to `partners.json`. `tier` is `platinum`, `gold`, `silver` or `house`. `projects` is `"all"` or a list
-   of site ids (`hyper-fetch`, `docusaurus-docgen`, `react-zoom-pan-pinch`). `startsAt` and `endsAt` take ISO dates,
+   of site ids (`hyper-fetch`, `docusaurus-docgen`, `react-zoom-pan-pinch`). `github` takes their GitHub login when they also sponsor, so they show as the partner only. `startsAt` and `endsAt` take ISO dates,
    and the feed drops the partner on its own once `endsAt` passes.
 3. Push to `main`. The workflow checks the file, rebuilds the feed and purges the CDN.
 
